@@ -1,1 +1,45 @@
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<select class="estados">
+</select>
 
+<div class="cidades">
+
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+
+<script>
+$(function() {
+
+var cidades = []
+
+$.getJSON('https://cicerojoceilton.github.io/estados_cidades/estados_cidades.json', function(data) {
+					$.each(data, function (key, item) {
+						var optionText = item.nome;
+						var optionValue = item.sigla;
+						$('.estados').append(`<option value='${optionValue}'>${optionText}</option>`)
+					});
+				});
+				
+				                    
+$('.estados').on('change', function() {         
+var estado = $(this).val()            
+	$.getJSON('https://cicerojoceilton.github.io/estados_cidades/estados_cidades.json', function(data) {
+	$.each(data, function (key, item) {
+	if (item.sigla == estado) {
+	var dados = item.cidades
+	$(".cidades").html("")
+	
+	$(".cidades").append(`<p> ${dados} </p>`)
+	
+	}
+	});
+	
+	})
+})
+				
+					
+
+})
+
+</script>
